@@ -1,5 +1,5 @@
 # [WIP] sbi4onnx
-A very simple script that only initializes the batch size of ONNX. Simple Batchsize Initialization for ONNX.
+A very simple script that only initializes the batch size of ONNX. **S**imple **B**atchsize **I**nitialization for **ONNX**.
 
 https://github.com/PINTO0309/simple-onnx-processing-tools
 
