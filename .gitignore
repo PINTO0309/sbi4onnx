@@ -1,0 +1,12 @@
+.vscode/
+saved_model/
+build/
+dist/
+sbi4onnx.egg-info/
+sbi4onnx/debug/
+sbi4onnx/saved_model/
+__pycache__/
+test.py
+
+*.onnx
+*.npy
