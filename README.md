@@ -7,4 +7,4 @@ https://github.com/PINTO0309/simple-onnx-processing-tools
 
 # Key concept
 - [ ] Initializes the ONNX batch size with the specified characters.
-- [ ] This tool is not a panacea and may fail to initialize models with very complex structures. For example, there is an ONNX that contains a Reshape that involves a batch size, or a Gemm that contains a batch output other than 1 in the output result.
+- [ ] This tool is not a panacea and may fail to initialize models with very complex structures. For example, there is an ONNX that contains a `Reshape` that involves a batch size, or a `Gemm` that contains a batch output other than 1 in the output result.
