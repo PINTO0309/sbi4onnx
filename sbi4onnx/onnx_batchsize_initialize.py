@@ -6,6 +6,7 @@ import onnx_graphsurgeon as gs
 from typing import Optional
 import struct
 from argparse import ArgumentParser
+from onnxsim import simplify
 
 class Color:
     BLACK          = '\033[30m'
@@ -90,6 +91,10 @@ def initialize(
     # onnx_graph If specified, onnx_graph is processed first
     if not onnx_graph:
         onnx_graph = onnx.load(input_onnx_file_path)
+    try:
+        onnx_graph, _ = simplify(onnx_graph)
+    except:
+        pass
     graph = gs.import_onnx(onnx_graph)
     graph.cleanup().toposort()
     target_model = gs.export_onnx(graph)
@@ -98,6 +103,7 @@ def initialize(
     # Change batch size in input, output and value_info
     taget_nodes = \
         list(target_graph.input) + \
+        list(target_graph.value_info) + \
         list(target_graph.output)
 
     for tensor in taget_nodes:

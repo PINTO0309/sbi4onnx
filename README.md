@@ -20,6 +20,7 @@ $ echo export PATH="~/.local/bin:$PATH" >> ~/.bashrc \
 ### run
 $ pip install -U onnx \
 && python3 -m pip install -U onnx_graphsurgeon --index-url https://pypi.ngc.nvidia.com \
+&& pip install -U onnx-simplifier \
 && pip install -U sbi4onnx
 ```
 ### 1-2. Docker
@@ -75,25 +76,25 @@ initialize(
         Input onnx file path.
         Either input_onnx_file_path or onnx_graph must be specified.
         Default: ''
-    
+
     onnx_graph: Optional[onnx.ModelProto]
         onnx.ModelProto.
         Either input_onnx_file_path or onnx_graph must be specified.
         onnx_graph If specified, ignore input_onnx_file_path and process onnx_graph.
-    
+
     output_onnx_file_path: Optional[str]
         Output onnx file path. If not specified, no ONNX file is output.
         Default: ''
-    
+
     initialization_character_string: Optional[str]
         String to initialize batch size. "-1" or "N" or "xxx", etc...
-    
+
         Default: '-1'
-    
+
     non_verbose: Optional[bool]
         Do not show all information logs. Only error logs are displayed.
         Default: False
-    
+
     Returns
     -------
     changed_graph: onnx.ModelProto
