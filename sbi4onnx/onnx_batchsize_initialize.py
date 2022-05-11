@@ -98,11 +98,11 @@ def initialize(
     # Change batch size in input, output and value_info
     taget_nodes = \
         list(target_graph.input) + \
-        list(target_graph.value_info) + \
         list(target_graph.output)
 
     for tensor in taget_nodes:
-        tensor.type.tensor_type.shape.dim[0].dim_param = initialization_character_string
+        if len(tensor.type.tensor_type.shape.dim)>0:
+            tensor.type.tensor_type.shape.dim[0].dim_param = initialization_character_string
 
     # Set dynamic batch size in reshapes (-1)
     for node in  target_graph.node:
@@ -121,6 +121,10 @@ def initialize(
                 shape = bytearray(init.raw_data)
                 struct.pack_into('q', shape, 0, -1)
                 init.raw_data = bytes(shape)
+
+    # infer_shapes
+    if len(target_graph.value_info) > 0:
+        target_model = onnx.shape_inference.infer_shapes(target_model)
 
     # Save
     if output_onnx_file_path:
