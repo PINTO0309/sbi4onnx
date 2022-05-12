@@ -31,7 +31,7 @@ https://github.com/PINTO0309/simple-onnx-processing-tools#docker
 $ sbi4onnx -h
 
 usage:
-  sna4onnx [-h]
+  sbi4onnx [-h]
   --input_onnx_file_path INPUT_ONNX_FILE_PATH
   --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
   --initialization_character_string INITIALIZATION_CHARACTER_STRING
