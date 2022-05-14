@@ -88,7 +88,6 @@ initialize(
 
     initialization_character_string: Optional[str]
         String to initialize batch size. "-1" or "N" or "xxx", etc...
-
         Default: '-1'
 
     non_verbose: Optional[bool]
