@@ -32,31 +32,31 @@ $ pip install -U onnx \
 https://github.com/PINTO0309/simple-onnx-processing-tools#docker
 
 ## 2. CLI Usage
-```bash
+```
 $ sbi4onnx -h
 
 usage:
   sbi4onnx [-h]
-  --input_onnx_file_path INPUT_ONNX_FILE_PATH
-  --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
-  --initialization_character_string INITIALIZATION_CHARACTER_STRING
-  [--non_verbose]
+  -if INPUT_ONNX_FILE_PATH
+  -of OUTPUT_ONNX_FILE_PATH
+  -ics INITIALIZATION_CHARACTER_STRING
+  [-n]
 
 optional arguments:
   -h, --help
       show this help message and exit.
 
-  --input_onnx_file_path INPUT_ONNX_FILE_PATH
+  -if INPUT_ONNX_FILE_PATH, --input_onnx_file_path INPUT_ONNX_FILE_PATH
       Input onnx file path.
 
-  --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
+  -of OUTPUT_ONNX_FILE_PATH, --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
       Output onnx file path.
 
-  --initialization_character_string INITIALIZATION_CHARACTER_STRING
+  -ics INITIALIZATION_CHARACTER_STRING, --initialization_character_string INITIALIZATION_CHARACTER_STRING
       String to initialize batch size. "-1" or "N" or "xxx", etc...
       Default: '-1'
 
-  --non_verbose
+  -n, --non_verbose
       Do not show all information logs. Only error logs are displayed.
 ```
 
