@@ -40,6 +40,7 @@ usage:
   -if INPUT_ONNX_FILE_PATH
   -of OUTPUT_ONNX_FILE_PATH
   -ics INITIALIZATION_CHARACTER_STRING
+  [-dos]
   [-n]
 
 optional arguments:
@@ -55,6 +56,9 @@ optional arguments:
   -ics INITIALIZATION_CHARACTER_STRING, --initialization_character_string INITIALIZATION_CHARACTER_STRING
       String to initialize batch size. "-1" or "N" or "xxx", etc...
       Default: '-1'
+
+  -dos, --disable_onnxsim
+      Suppress the execution of onnxsim on the backend and dare to leave redundant processing.
 
   -n, --non_verbose
       Do not show all information logs. Only error logs are displayed.
@@ -72,7 +76,8 @@ initialize(
   onnx_graph: Union[onnx.onnx_ml_pb2.ModelProto, NoneType] = None,
   output_onnx_file_path: Union[str, NoneType] = '',
   initialization_character_string: Union[str, NoneType] = '-1',
-  non_verbose: Union[bool, NoneType] = False
+  non_verbose: Union[bool, NoneType] = False,
+  disable_onnxsim: Union[bool, NoneType] = False,
 ) -> onnx.onnx_ml_pb2.ModelProto
 
     Parameters
@@ -94,6 +99,10 @@ initialize(
     initialization_character_string: Optional[str]
         String to initialize batch size. "-1" or "N" or "xxx", etc...
         Default: '-1'
+
+    disable_onnxsim: Optional[bool]
+        Suppress the execution of onnxsim on the backend and dare to leave redundant processing.
+        Default: False
 
     non_verbose: Optional[bool]
         Do not show all information logs. Only error logs are displayed.

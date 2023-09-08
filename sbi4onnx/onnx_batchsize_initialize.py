@@ -39,6 +39,7 @@ def initialize(
     onnx_graph: Optional[onnx.ModelProto] = None,
     output_onnx_file_path: Optional[str] = '',
     initialization_character_string: Optional[str] = '-1',
+    disable_onnxsim: Optional[bool] = False,
     non_verbose: Optional[bool] = False,
 ) -> onnx.ModelProto:
     """
@@ -61,6 +62,10 @@ def initialize(
     initialization_character_string: Optional[str]
         String to initialize batch size. "-1" or "N" or "xxx", etc...\n
         Default: '-1'
+
+    disable_onnxsim: Optional[bool]
+        Suppress the execution of onnxsim on the backend and dare to leave redundant processing.\n\
+        Default: False
 
     non_verbose: Optional[bool]
         Do not show all information logs. Only error logs are displayed.\n\
@@ -92,7 +97,10 @@ def initialize(
     if not onnx_graph:
         onnx_graph = onnx.load(input_onnx_file_path)
     try:
-        onnx_graph, _ = simplify(onnx_graph)
+        # onnx-simplifier does not support optimization of ONNX files containing custom domains,
+        # so skip simplify if it contains custom domains
+        if not disable_onnxsim:
+            onnx_graph, _ = simplify(onnx_graph)
     except:
         pass
     graph = gs.import_onnx(onnx_graph)
@@ -170,6 +178,12 @@ def main():
             'Default: \'-1\''
     )
     parser.add_argument(
+        '-dos',
+        '--disable_onnxsim',
+        action='store_true',
+        help='Suppress the execution of onnxsim on the backend and dare to leave redundant processing.'
+    )
+    parser.add_argument(
         '-n',
         '--non_verbose',
         action='store_true',
@@ -180,6 +194,7 @@ def main():
     input_onnx_file_path = args.input_onnx_file_path
     output_onnx_file_path = args.output_onnx_file_path
     initialization_character_string = args.initialization_character_string
+    disable_onnxsim = args.disable_onnxsim
     non_verbose = args.non_verbose
 
     # Load
@@ -191,6 +206,7 @@ def main():
         onnx_graph=onnx_graph,
         output_onnx_file_path=output_onnx_file_path,
         initialization_character_string=initialization_character_string,
+        disable_onnxsim=disable_onnxsim,
         non_verbose=non_verbose,
     )
 
