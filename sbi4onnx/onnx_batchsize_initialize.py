@@ -103,9 +103,14 @@ def initialize(
             onnx_graph, _ = simplify(onnx_graph)
     except:
         pass
+
+    # domain, ir_version
+    domain: str = onnx_graph.domain
+    ir_version: int = onnx_graph.ir_version
+
     graph = gs.import_onnx(onnx_graph)
     graph.cleanup().toposort()
-    target_model = gs.export_onnx(graph)
+    target_model = gs.export_onnx(graph, do_type_check=False, **{'domain': domain, 'ir_version': ir_version})
     target_graph = target_model.graph
 
     # Change batch size in input, output and value_info
