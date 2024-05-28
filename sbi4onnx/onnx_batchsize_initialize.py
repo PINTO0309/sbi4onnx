@@ -107,10 +107,16 @@ def initialize(
     # domain, ir_version
     domain: str = onnx_graph.domain
     ir_version: int = onnx_graph.ir_version
+    meta_data = {'domain': domain, 'ir_version': ir_version}
+    metadata_props = None
+    if hasattr(onnx_graph, 'metadata_props'):
+        metadata_props = onnx_graph.metadata_props
 
     graph = gs.import_onnx(onnx_graph)
     graph.cleanup().toposort()
-    target_model = gs.export_onnx(graph, do_type_check=False, **{'domain': domain, 'ir_version': ir_version})
+    target_model = gs.export_onnx(graph, do_type_check=False, **meta_data)
+    if metadata_props is not None:
+        target_model.metadata_props.extend(metadata_props)
     target_graph = target_model.graph
 
     # Change batch size in input, output and value_info
